@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Happy Birthday! 🎂 Make a Wish</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>">
+
+  <!-- Google Fonts: Bagel Fat One for bold playful title, Outfit & DM Sans for clean elegance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient floating sparkles in the dark -->
+  <div class="ambient-stars" id="ambientStars" aria-hidden="true"></div>
+
+  <!-- Festive celebration elements (revealed when room lights turn on) -->
+  <div class="party-decorations" aria-hidden="true">
+    <div class="bunting">
+      <span class="flag f1"></span>
+      <span class="flag f2"></span>
+      <span class="flag f3"></span>
+      <span class="flag f4"></span>
+      <span class="flag f5"></span>
+      <span class="flag f6"></span>
+      <span class="flag f7"></span>
+      <span class="flag f8"></span>
+      <span class="flag f9"></span>
+    </div>
+    <div class="balloon balloon-1">🎈</div>
+    <div class="balloon balloon-2">🎈</div>
+    <div class="balloon balloon-3">🎈</div>
+    <div class="balloon balloon-4">🎈</div>
+  </div>
+
+  <!-- Confetti Canvas for 60fps celebratory explosion -->
+  <canvas id="confettiCanvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- Top Utilities Bar -->
+  <header class="top-bar">
+    <button id="soundToggle" class="icon-btn" title="Toggle Sound" aria-label="Toggle Sound">
+      <span class="icon">🔊</span>
+      <span class="btn-text">Sound ON</span>
+    </button>
+    <button id="customizeBtn" class="icon-btn" title="Personalize this card" aria-label="Personalize this card">
+      <span class="icon">✏️</span>
+      <span class="btn-text">Personalize</span>
+    </button>
+  </header>
+
+  <!-- Main Interactive Stage -->
+  <main class="stage">
+    
+    <!-- Dynamic Message Area -->
+    <div class="words">
+      
+      <!-- Initial Hint (Visible in the dark) -->
+      <section class="hint" id="hintSection">
+        <div class="candle-counter" id="candleCounter" aria-label="Wishes progress">
+          <span class="counter-dot active" data-index="0"></span>
+          <span class="counter-dot active" data-index="1"></span>
+          <span class="counter-dot active" data-index="2"></span>
+        </div>
+        <h2 class="hint-title">It’s dark in here... ✨</h2>
+        <p class="hint-subtitle" id="hintInstruction">
+          Tap each candle to blow it out and make a wish.
+        </p>
+      </section>
+
+      <!-- Birthday Greeting Card (Reveals when all candles are blown out) -->
+      <section class="greet" id="greetSection" aria-live="polite">
+        <div class="greet-card">
+          <div class="celebration-badge">🎉 HAPPY BIRTHDAY 🎉</div>
+          <h1 id="title" class="birthday-title">Happy birthday, blu!</h1>
+          
+          <div class="message-wrapper">
+            <p id="msg" class="birthday-message">
+              Another year, another reason to celebrate you. I hope this one is full of good surprises and beautiful moments.
+            </p>
+            <div id="from" class="author-signature">With love, Fitsum ❤️</div>
+          </div>
+
+          <div class="actions-wrapper">
+            <button id="again" class="again-btn">
+              <span class="sparkle-icon">🕯️</span> Light the candles again
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- The Interactive Birthday Cake -->
+    <div class="cake-container" aria-label="Birthday cake with 3 candles">
+      
+      <!-- Wish float notification container -->
+      <div id="wishFloats" class="wish-floats" aria-hidden="true"></div>
+
+      <div class="cake">
+        <!-- Stand & Plate -->
+        <div class="cake-stand">
+          <div class="plate"></div>
+          <div class="stand-pillar"></div>
+          <div class="stand-base"></div>
+        </div>
+
+        <!-- Tier 1: Bottom Tier (Strawberry Layer) -->
+        <div class="tier t1">
+          <div class="icing-decorations">
+            <span class="piping-pearl"></span>
+            <span class="piping-pearl"></span>
+            <span class="piping-pearl"></span>
+            <span class="piping-pearl"></span>
+            <span class="piping-pearl"></span>
+            <span class="piping-pearl"></span>
+            <span class="piping-pearl"></span>
+          </div>
+          <div class="sprinkles">
+            <i class="sprinkle s1"></i>
+            <i class="sprinkle s2"></i>
+            <i class="sprinkle s3"></i>
+            <i class="sprinkle s4"></i>
+            <i class="sprinkle s5"></i>
+            <i class="sprinkle s6"></i>
+            <i class="sprinkle s7"></i>
+            <i class="sprinkle s8"></i>
+          </div>
+        </div>
+
+        <!-- Tier 2: Top Tier (Vanilla & Drip Layer) -->
+        <div class="tier t2">
+          <div class="frosting-drips">
+            <span class="drip d1"></span>
+            <span class="drip d2"></span>
+            <span class="drip d3"></span>
+            <span class="drip d4"></span>
+            <span class="drip d5"></span>
+          </div>
+          <div class="cream-dollops">
+            <span class="dollop dol1">🍓</span>
+            <span class="dollop dol2">🍓</span>
+            <span class="dollop dol3">🍓</span>
+          </div>
+        </div>
+
+        <!-- Candle 1 (Left) -->
+        <button class="candle c1" id="candle1" aria-label="Candle 1 - Click to blow out and make wish #1">
+          <div class="stick candle-mint"></div>
+          <div class="wick"></div>
+          <div class="flame-wrapper">
+            <div class="flame-aura"></div>
+            <div class="flame">
+              <div class="flame-inner"></div>
+            </div>
+          </div>
+          <div class="ember"></div>
+          <div class="smoke"></div>
+        </button>
+
+        <!-- Candle 2 (Center - Taller) -->
+        <button class="candle c2" id="candle2" aria-label="Candle 2 - Click to blow out and make wish #2">
+          <div class="stick candle-pink"></div>
+          <div class="wick"></div>
+          <div class="flame-wrapper">
+            <div class="flame-aura"></div>
+            <div class="flame">
+              <div class="flame-inner"></div>
+            </div>
+          </div>
+          <div class="ember"></div>
+          <div class="smoke"></div>
+        </button>
+
+        <!-- Candle 3 (Right) -->
+        <button class="candle c3" id="candle3" aria-label="Candle 3 - Click to blow out and make wish #3">
+          <div class="stick candle-purple"></div>
+          <div class="wick"></div>
+          <div class="flame-wrapper">
+            <div class="flame-aura"></div>
+            <div class="flame">
+              <div class="flame-inner"></div>
+            </div>
+          </div>
+          <div class="ember"></div>
+          <div class="smoke"></div>
+        </button>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Personalize Modal Dialog -->
+  <div class="modal-overlay" id="customizeModal" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h3 id="modalTitle">🎁 Personalize This Birthday Card</h3>
+        <button class="close-btn" id="closeModalBtn" aria-label="Close modal">&times;</button>
+      </div>
+      <form id="customizeForm" class="modal-body">
+        <label for="inputName">Birthday Person's Name:</label>
+        <input type="text" id="inputName" placeholder="e.g. blu" required maxlength="30" />
+
+        <label for="inputFrom">From (Your Name):</label>
+        <input type="text" id="inputFrom" placeholder="e.g. Fitsum" required maxlength="30" />
+
+        <label for="inputMessage">Your Birthday Message / Wish:</label>
+        <textarea id="inputMessage" rows="3" placeholder="Write a warm birthday wish..." required maxlength="250"></textarea>
+
+        <div class="modal-actions">
+          <button type="submit" class="btn-save">✨ Save & Update</button>
+          <button type="button" id="copyShareBtn" class="btn-share">🔗 Copy Share Link</button>
+        </div>
+        <p class="share-notice" id="shareNotice"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
