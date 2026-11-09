@@ -11,7 +11,7 @@
 
 const CONFIG = {
   // The name of the birthday person:
-  name: "blu",
+  name: "kiyu",
 
   // Your name (who the card is from):
   from: "Fitsum",
@@ -170,7 +170,7 @@ function playHappyBirthdaySong() {
     { freq: 587.33, dur: 0.60, time: 5.95 },  // D5
     { freq: 523.25, dur: 1.10, time: 6.60 },  // C5
 
-    // Line 3: "Happy birthday dear Blu"
+    // Line 3: "Happy birthday dear Kiyu"
     { freq: 392.00, dur: 0.35, time: 7.80 },  // G4
     { freq: 392.00, dur: 0.35, time: 8.18 },  // G4
     { freq: 783.99, dur: 0.70, time: 8.56 },  // G5
@@ -377,6 +377,7 @@ function updateCandlesState() {
     // Short dramatic suspense before room lights burst on
     setTimeout(() => {
       document.body.classList.add('lit');
+      playCelebrationFanfare();
       playHappyBirthdaySong();
       triggerConfettiExplosion();
     }, 450);
@@ -543,7 +544,7 @@ customizeModal.addEventListener('click', (e) => {
 
 customizeForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  CONFIG.name = inputName.value.trim() || "blu";
+  CONFIG.name = inputName.value.trim() || "kiyu";
   CONFIG.from = inputFrom.value.trim() || "Fitsum";
   CONFIG.message = inputMessage.value.trim() || "Happy Birthday!";
 
